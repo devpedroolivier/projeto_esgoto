@@ -1,0 +1,7 @@
+pandas
+selenium
+webdriver-manager
+matplotlib
+openpyxl
+jinja2
+pyvirtualdisplay
