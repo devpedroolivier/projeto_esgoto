@@ -24,7 +24,12 @@ def carregar_config():
 
 def configurar_chrome(download_dir):
     chrome_options = Options()
-    chrome_options.add_argument("--start-maximized")
+    chrome_options.add_argument("--headless=new")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--window-size=1920x1080")
+    chrome_options.add_argument("--disable-software-rasterizer")
     prefs = {
         "download.default_directory": os.path.abspath(download_dir),
         "download.prompt_for_download": False,
@@ -33,6 +38,7 @@ def configurar_chrome(download_dir):
     }
     chrome_options.add_experimental_option("prefs", prefs)
     return chrome_options
+
 
 def aguardar_download(diretorio, timeout=60):
     logging.info("Aguardando término do download...")

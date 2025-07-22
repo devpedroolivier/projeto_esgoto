@@ -1,27 +1,24 @@
 FROM python:3.11-slim
 
-# Instalar dependências do sistema
+# Instalações necessárias
 RUN apt-get update && apt-get install -y \
-    chromium-driver \
-    chromium \
-    curl \
-    unzip \
-    xvfb \
+    wget unzip gnupg curl xvfb \
+    fonts-liberation libnss3 libatk-bridge2.0-0 libxss1 libasound2 libgtk-3-0 libgbm1 libu2f-udev libxshmfence1 \
     && rm -rf /var/lib/apt/lists/*
 
-# Variáveis de ambiente para o Chrome
-ENV CHROME_BIN="/usr/bin/chromium" \
-    PATH="/usr/lib/chromium:$PATH"
+# Instalar o Google Chrome
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+    && apt-get install -y ./google-chrome-stable_current_amd64.deb \
+    && rm google-chrome-stable_current_amd64.deb
 
-# Criar diretório
+# Define o path
+ENV CHROME_BIN="/usr/bin/google-chrome"
+
+# Instalar dependências Python
 WORKDIR /app
-
-# Copiar arquivos
 COPY . .
-
-# Instalar dependências do Python
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Comando para executar a automação
+# Executar
 CMD ["python", "main.py"]
