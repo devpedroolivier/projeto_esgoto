@@ -96,39 +96,47 @@ def realizar_login(driver, config):
     logging.info("✅ Login realizado com sucesso!")
 
 def navegar_e_exportar(driver):
-    wait = WebDriverWait(driver, 30)
+    wait = WebDriverWait(driver, 40)
 
-    wait.until(EC.element_to_be_clickable((
-        By.CSS_SELECTOR, "#sidebar-scrollbar > div:nth-child(2) > div:nth-child(4)"
-    ))).click()
-    logging.info("🔹 Clicou em NORTE SABESP")
+    try:
+        wait.until(EC.element_to_be_clickable((
+            By.CSS_SELECTOR, "#sidebar-scrollbar > div:nth-child(2) > div:nth-child(4)"
+        ))).click()
+        logging.info("🔹 Clicou em NORTE SABESP")
 
-    wait.until(EC.element_to_be_clickable((
-        By.XPATH, '//*[@id="sidebar-scrollbar"]/div[2]/a[1]'
-    ))).click()
-    logging.info("🔹 Clicou em Norte Nível - Mapa e Resumo")
-    time.sleep(2)
+        wait.until(EC.element_to_be_clickable((
+            By.XPATH, '//*[@id="sidebar-scrollbar"]/div[2]/a[1]'
+        ))).click()
+        logging.info("🔹 Clicou em Norte Nível - Mapa e Resumo")
+        time.sleep(2)
 
-    wait.until(EC.element_to_be_clickable((
-        By.XPATH, '//*[@id="app"]/div/div[2]/div[5]/div/div/div/div/nav/button[2]'
-    ))).click()
-    logging.info("🔹 Clicou em Resumo de dados")
-    time.sleep(2)
+        wait.until(EC.element_to_be_clickable((
+            By.XPATH, '//*[@id="app"]/div/div[2]/div[5]/div/div/div/div/nav/button[2]'
+        ))).click()
+        logging.info("🔹 Clicou em Resumo de dados")
+        time.sleep(2)
 
-    wait.until(EC.element_to_be_clickable((
-        By.XPATH, '//*[@id="app"]/div/div[2]/div[5]/div/div/div/div/div/div/div[1]/div/div/div/div[1]/div/button[2]'
-    ))).click()
-    logging.info("🔹 Clicou nos três pontos (...)")
+        wait.until(EC.element_to_be_clickable((
+            By.XPATH, '//*[@id="app"]/div/div[2]/div[5]/div/div/div/div/div/div/div[1]/div/div/div/div[1]/div/button[2]'
+        ))).click()
+        logging.info("🔹 Clicou nos três pontos (...)")
 
-    wait.until(EC.element_to_be_clickable((
-        By.XPATH, '/html/body/div[2]/div[3]'
-    ))).click()
-    logging.info("🔹 Clicou em Export to")
+        wait.until(EC.element_to_be_clickable((
+            By.XPATH, '/html/body/div[2]/div[3]'
+        ))).click()
+        logging.info("🔹 Clicou em Export to")
 
-    wait.until(EC.element_to_be_clickable((
-        By.XPATH, '/html/body/div[3]/div[1]'
-    ))).click()
-    logging.info("✅ Exportação XLSX iniciada")
+        wait.until(EC.element_to_be_clickable((
+            By.XPATH, '/html/body/div[3]/div[1]'
+        ))).click()
+        logging.info("✅ Exportação XLSX iniciada")
+
+    except Exception as e:
+        logging.error(f"❌ Erro ao navegar ou exportar: {e}")
+        driver.save_screenshot("erro_exportacao.png")
+        logging.error("🖼 Screenshot salva como erro_exportacao.png")
+        print("💡 DICA: copie com: docker cp esgoto_bot:/app/erro_exportacao.png .")
+        raise
 
 def main():
     os.makedirs("dados", exist_ok=True)
