@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            background: #f9f9f9;
+            padding: 20px;
+        }
+        h2 {
+            color: #005eb8;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        th {
+            background-color: #005eb8;
+            color: white;
+            padding: 10px;
+        }
+        td {
+            text-align: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .alerta {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>📊 Carteira de Monitoramento - Resumo por CEO</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>CEO</th>
+                <th>Total</th>
+                <th>Normal</th>
+                <th>Crítico</th>
+                <th>Alerta</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+            <tr>
+                <td>Santana</td>
+                <td>12</td>
+                <td>6</td>
+                <td>3</td>
+                <td class="alerta">3</td>
+            </tr>
+        
+            <tr>
+                <td>Guarulhos</td>
+                <td>10</td>
+                <td>4</td>
+                <td>4</td>
+                <td class="alerta">2</td>
+            </tr>
+        
+            <tr>
+                <td>Pirituba</td>
+                <td>8</td>
+                <td>2</td>
+                <td>3</td>
+                <td class="alerta">3</td>
+            </tr>
+        
+        </tbody>
+    </table>
+</body>
+</html>

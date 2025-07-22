@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  esgoto_bot:
+    build: .
+    container_name: esgoto_bot
+    volumes:
+      - ./dados:/app/dados
+      - ./relatorios:/app/relatorios
+      - ./logs:/app/logs
+    restart: always

@@ -1,0 +1,28 @@
+{
+  "login": "andersoncosta@sabesp.com.br",
+  "senha": "anderson1",
+  "url_sistema": "https://ecojobsupervisorio.tago.run/auth/login",
+  "limites_alerta": {
+    "ok": 0.5,
+    "alerta": 0.75
+  },
+  "email_alerta": {
+    "remetente": "poliveira.eficien@sabesp.com.br",
+    "senha_app": "zpzvbdffbmhscqsz",
+    "destinatarios": [
+      "asalvador@sabesp.com.br",
+      "rcarmo@sabesp.com.br",
+      "lasouza@sabesp.com.br",
+      "nventura@sabesp.com.br",
+      "silvaalex@sabesp.com.br",
+      "asluz@sabesp.com.br",
+      "mhanjos@sabesp.com.br",
+      "vgpcarvalho@sabesp.com.br",
+      "efiuza@sabesp.com.br",
+      "rgois@sabesp.com.br",
+      "miltonnascimento@sabesp.com.br",
+      "yivonica@sabesp.com.br",
+      "andersoncosta@sabesp.com.br"
+    ]
+  }
+}
