@@ -1,24 +1,30 @@
 FROM python:3.11-slim
 
-# Instalações necessárias
+# Instala dependências do sistema
 RUN apt-get update && apt-get install -y \
-    wget unzip gnupg curl xvfb \
-    fonts-liberation libnss3 libatk-bridge2.0-0 libxss1 libasound2 libgtk-3-0 libgbm1 libu2f-udev libxshmfence1 \
-    && rm -rf /var/lib/apt/lists/*
+    wget curl unzip gnupg2 ca-certificates fonts-liberation \
+    libnss3 libatk-bridge2.0-0 libxss1 libasound2 libgtk-3-0 libgbm1 libu2f-udev libxshmfence1 libdrm2 \
+    --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
-# Instalar o Google Chrome
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-    && apt-get install -y ./google-chrome-stable_current_amd64.deb \
-    && rm google-chrome-stable_current_amd64.deb
+# Instala o Google Chrome estável
+RUN curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-linux.gpg && \
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-linux.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
+    apt-get update && \
+    apt-get install -y google-chrome-stable && \
+    rm -rf /var/lib/apt/lists/*
 
-# Define o path
+# Define variável de ambiente
 ENV CHROME_BIN="/usr/bin/google-chrome"
 
-# Instalar dependências Python
+# Define diretório de trabalho
 WORKDIR /app
+
+# Copia os arquivos
 COPY . .
+
+# Instala dependências Python
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Executar
+# Comando padrão
 CMD ["python", "main.py"]
