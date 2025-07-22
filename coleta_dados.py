@@ -29,7 +29,7 @@ def configurar_chrome(download_dir):
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--disable-gpu")
-    chrome_options.add_argument("--window-size=1920x1080")
+    chrome_options.add_argument("--window-size=1930x1080")
     chrome_options.add_argument("--disable-software-rasterizer")
     prefs = {
         "download.default_directory": os.path.abspath(download_dir),
@@ -96,7 +96,7 @@ def realizar_login(driver, config):
     logging.info("✅ Login realizado com sucesso!")
 
 def navegar_e_exportar(driver):
-    wait = WebDriverWait(driver, 20)
+    wait = WebDriverWait(driver, 30)
 
     wait.until(EC.element_to_be_clickable((
         By.CSS_SELECTOR, "#sidebar-scrollbar > div:nth-child(2) > div:nth-child(4)"
