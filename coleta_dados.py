@@ -42,21 +42,19 @@ def configurar_chrome(download_dir):
 
 
 def aguardar_download(diretorio, timeout=60):
-    logging.info("Aguardando término do download...")
-    segundos = 0
-    while segundos < timeout:
+    logging.info("⏳ Aguardando término do download...")
+    inicio = time.time()
+    while time.time() - inicio < timeout:
         arquivos = os.listdir(diretorio)
-        if any(arquivo.endswith('.crdownload') for arquivo in arquivos):
+        if any(f.endswith(".crdownload") for f in arquivos):
             time.sleep(1)
-            segundos += 1
-        else:
-            # Espera extra para garantir finalização de escrita no disco
-            time.sleep(3)
-            logging.info("✅ Download concluído!")
+            continue
+        elif any(f.endswith(".xlsx") for f in arquivos):
+            logging.info("✅ Download concluído com sucesso!")
             return True
-    logging.warning("⏱️ Timeout: download não finalizado após 60s.")
+        time.sleep(1)
+    logging.warning("⚠️ Download falhou ou demorou demais.")
     return False
-
 
 def mover_para_dados(origem_dir, destino_dir):
     for arquivo in os.listdir(origem_dir):
@@ -73,13 +71,13 @@ def mover_para_dados(origem_dir, destino_dir):
     logging.error("❌ Nenhum arquivo .xlsx encontrado para mover.")
     return None
 
-
 def realizar_login(driver, config):
     url = config["url_sistema"]
     usuario = config["login"]
     senha = config["senha"]
 
     driver.get(url)
+    driver.maximize_window()
     time.sleep(3)
 
     campo_email = driver.find_element(By.CSS_SELECTOR, "input[type='email']")
@@ -96,9 +94,14 @@ def realizar_login(driver, config):
     logging.info("✅ Login realizado com sucesso!")
 
 def navegar_e_exportar(driver):
-    wait = WebDriverWait(driver, 40)
-
+    wait = WebDriverWait(driver, 10)
+    
     try:
+        wait.until(EC.element_to_be_clickable((
+            By.XPATH, '//*[@id="app"]/div/div[2]/div[1]/div[1]/button'
+        ))).click()
+        logging.info("🔹 Clicou nas 3 Listras")
+
         wait.until(EC.element_to_be_clickable((
             By.CSS_SELECTOR, "#sidebar-scrollbar > div:nth-child(2) > div:nth-child(4)"
         ))).click()
