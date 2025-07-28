@@ -138,7 +138,7 @@ def enviar_email(caminho_relatorio, caminhos_graficos=None):
 
     msg = EmailMessage()
     msg["Subject"] = "📡 Relatório de Medidores de Nível"
-    msg["From"] = email_cfg["remetente"]
+    msg["From"] = os.getenv("EMAIL_USER")
     msg["To"] = ", ".join(email_cfg["destinatarios"])
     msg.set_content("Segue resumo da carteira de monitoramento em HTML. Se não visualizar, verifique o anexo.")
     msg.add_alternative(html_corpo, subtype='html')
@@ -151,7 +151,7 @@ def enviar_email(caminho_relatorio, caminhos_graficos=None):
     try:
         with smtplib.SMTP("smtp.office365.com", 587) as smtp:
             smtp.starttls()
-            smtp.login(email_cfg["remetente"], email_cfg["senha_app"])
+            smtp.login(os.getenv("EMAIL_USER"), os.getenv("EMAIL_PASS"))
             smtp.send_message(msg)
             print("✅ E-mail enviado com sucesso!")
     except Exception as e:

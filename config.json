@@ -7,8 +7,8 @@
     "alerta": 0.75
   },
   "email_alerta": {
-    "remetente": "poliveira.eficien@sabesp.com.br",
-    "senha_app": "zpzvbdffbmhscqsz",
+    "remetente": "",
+    "senha_app": "",
     "destinatarios": [
       "asalvador@sabesp.com.br",
       "rcarmo@sabesp.com.br",
@@ -26,3 +26,5 @@
     ]
   }
 }
+
+
